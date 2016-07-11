@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +28,7 @@ public class DisplayContact extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("FRANCO_DEBUG", "oncreate Display Contact activity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_contact);
 
@@ -41,13 +43,17 @@ public class DisplayContact extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
+            Log.d("FRANCO_DEBUG", "extras != null");
             int Value = extras.getInt("id");
 
             if (Value > 0) {
                 // means this is the view part not the add contact part
+                Log.d("FRANCO_DEBUG", "Value = "  + Integer.toString(Value));
                 Cursor rs = mydb.getData(Value);
-                id_To_Update = Value;
+
                 rs.moveToFirst();
+                id_To_Update = Value;
+
 
                 String temp_name = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_NAME));
                 String temp_phone = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_PHONE));
@@ -83,6 +89,7 @@ public class DisplayContact extends AppCompatActivity {
                 place.setClickable(false);
             }
         }
+        Log.d("FRANCO_DEBUG", "oncreate finished Display Contact activity");
     }
 
     @Override
@@ -95,7 +102,7 @@ public class DisplayContact extends AppCompatActivity {
             if (Value > 0) {
                 getMenuInflater().inflate(R.menu.display_contact, menu);
             } else {
-                getMenuInflater().inflate(R.menu.main, menu);
+                getMenuInflater().inflate(R.menu.menu_main, menu);
             }
         }
         return true;
@@ -158,7 +165,7 @@ public class DisplayContact extends AppCompatActivity {
     public void run(View view) {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            int Value = extras.getIntent().getExtras();
+            int Value = extras.getInt("id");
             if (Value > 0) {
                 if (mydb.updateContact(id_To_Update, name.getText().toString(),
                         phone.getText().toString(), email.getText().toString(),
@@ -167,7 +174,7 @@ public class DisplayContact extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(getApplicationContext(). "not Updated", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "not Updated", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 if (mydb.insertContact(name.getText().toString(),

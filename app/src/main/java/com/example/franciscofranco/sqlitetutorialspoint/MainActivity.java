@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         obj.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("FRANCO_DEBUG", "onItemClick");
                 int id_To_Search = position + 1;
 
                 Bundle dataBundle = new Bundle();
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), DisplayContact.class);
                 intent.putExtras(dataBundle);
                 startActivity(intent);
+                Log.d("FRANCO_DEBUG", "onItemClick finished");
             }
         });
 
@@ -90,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 dataBundle.putInt("id", 0);
 
                 Intent intent = new Intent(getApplicationContext(),
-                        DiplayContact.class);
+                        DisplayContact.class);
                 intent.putExtras(dataBundle);
 
                 startActivity(intent);
