@@ -54,7 +54,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Cursor getData(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from contacts where id=" + id + "", null);
+        Cursor res = db.rawQuery("select * from contacts where id=" + id, null);
         return res;
     }
 

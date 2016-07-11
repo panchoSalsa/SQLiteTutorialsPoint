@@ -28,7 +28,9 @@ public class DisplayContact extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("FRANCO_DEBUG", "oncreate Display Contact activity");
+
+        Log.d("FRANCO_DEBUG", "DisplayCOntact Activity onCreate");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_contact);
 
@@ -43,12 +45,10 @@ public class DisplayContact extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
-            Log.d("FRANCO_DEBUG", "extras != null");
             int Value = extras.getInt("id");
 
             if (Value > 0) {
                 // means this is the view part not the add contact part
-                Log.d("FRANCO_DEBUG", "Value = "  + Integer.toString(Value));
                 Cursor rs = mydb.getData(Value);
 
                 rs.moveToFirst();
@@ -92,6 +92,8 @@ public class DisplayContact extends AppCompatActivity {
         Log.d("FRANCO_DEBUG", "oncreate finished Display Contact activity");
     }
 
+
+    // this is for the activity menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present
@@ -109,9 +111,11 @@ public class DisplayContact extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d("FRANCO_DEBUG", "onOptionsItemSelected");
         super.onOptionsItemSelected(item);
         switch(item.getItemId()) {
             case R.id.Edit_Contact:
+                Log.d("FRANCO_DEBUG", "onOptionsItemSelected edit");
                 Button b = (Button) findViewById(R.id.button1);
                 b.setVisibility(View.VISIBLE);
 
@@ -137,6 +141,7 @@ public class DisplayContact extends AppCompatActivity {
 
                 return true;
             case R.id.Delete_Contact:
+                Log.d("FRANCO_DEBUG", "onOptionsItemSelected delete");
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage(R.string.deleteContact)
                         .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
@@ -163,6 +168,7 @@ public class DisplayContact extends AppCompatActivity {
     }
 
     public void run(View view) {
+        Log.d("FRANCO_DEBUG", "inside run");
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             int Value = extras.getInt("id");
@@ -176,6 +182,7 @@ public class DisplayContact extends AppCompatActivity {
                 } else {
                     Toast.makeText(getApplicationContext(), "not Updated", Toast.LENGTH_SHORT).show();
                 }
+
             } else {
                 if (mydb.insertContact(name.getText().toString(),
                         phone.getText().toString(), email.getText().toString(),

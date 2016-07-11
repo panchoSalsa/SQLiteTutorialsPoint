@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         obj.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("FRANCO_DEBUG", "onItemClick");
                 int id_To_Search = position + 1;
 
                 Bundle dataBundle = new Bundle();
@@ -59,12 +58,13 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), DisplayContact.class);
                 intent.putExtras(dataBundle);
                 startActivity(intent);
-                Log.d("FRANCO_DEBUG", "onItemClick finished");
             }
         });
 
     }
 
+
+    // menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onKeyDown(int keycode, KeyEvent event) {
         if (keycode == KeyEvent.KEYCODE_BACK) {
+            Log.d("FRANCO_DEBUG", "BACK");
             moveTaskToBack(true);
         }
 
