@@ -48,18 +48,21 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("street", street);
         contentValues.put("place", place);
         db.insert("contacts", null, contentValues);
+        db.close();
         return true;
     }
 
     public Cursor getData(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("select * from contacts where id=" + id + "", null);
+        db.close();
         return res;
     }
 
     public int numberOfRows() {
         SQLiteDatabase db = this.getReadableDatabase();
         int numRows = (int) DatabaseUtils.queryNumEntries(db, CONTACTS_TABLE_NAME);
+        db.close();
         return numRows;
     }
 
@@ -73,11 +76,13 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("street", street);
         contentValues.put("place", place);
         db.update("contacts", contentValues, "id = ? ", new String [] {Integer.toString(id)});
+        db.close();
         return true;
     }
 
     public Integer deleteContact(Integer id) {
         SQLiteDatabase db = this.getWritableDatabase();
+
         return db.delete("contacts", "id = ? ", new String [] {Integer.toString(id)});
     }
 
@@ -93,6 +98,9 @@ public class DBHelper extends SQLiteOpenHelper {
             array_list.add(res.getString(res.getColumnIndex(CONTACTS_COLUMN_NAME)));
             res.moveToNext();
         }
+
+        db.close();
+        res.close();
 
         return array_list;
     }
